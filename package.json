@@ -1,0 +1,8 @@
+{
+    "name": "eslint-plugin-raw-highcharts",
+    "version": "0.1.0",
+    "main": "index.js",
+    "devDependencies": {
+        "eslint": "^7.32.0"
+    }
+}
