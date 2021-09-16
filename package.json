@@ -1,5 +1,5 @@
 {
-    "name": "eslint-plugin-raw-highcharts",
+    "name": "eslint-plugin-playground",
     "version": "0.1.0",
     "main": "index.js",
     "devDependencies": {
