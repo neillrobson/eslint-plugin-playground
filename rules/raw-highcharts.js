@@ -3,6 +3,7 @@ module.exports = {
         type: 'suggestion',
         fixable: 'code',
         messages: {
+            rawHighcharts: 'The raw Highcharts component contains several XSS vulnerabilities.',
             useSanitized: "Use Pendo's sanitized-highcharts component instead."
         }
     },
@@ -14,22 +15,27 @@ module.exports = {
             'VElement[name=highcharts]'(node) {
                 context.report({
                     node,
-                    messageId: 'useSanitized',
-                    fix: (fixer) => {
-                        const firstToken = template.getFirstToken(node);
-                        const fixes = [
-                            fixer.replaceTextRange(
-                                [firstToken.range[0] + 1, firstToken.range[1]],
-                                'sanitized-highcharts'
-                            )
-                        ];
+                    messageId: 'rawHighcharts',
+                    suggest: [
+                        {
+                            messageId: 'useSanitized',
+                            fix: (fixer) => {
+                                const firstToken = template.getFirstToken(node);
+                                const fixes = [
+                                    fixer.replaceTextRange(
+                                        [firstToken.range[0] + 1, firstToken.range[1]],
+                                        'sanitized-highcharts'
+                                    )
+                                ];
 
-                        if (node.endTag) {
-                            fixes.push(fixer.replaceText(node.endTag, '</sanitized-highcharts>'));
+                                if (node.endTag) {
+                                    fixes.push(fixer.replaceText(node.endTag, '</sanitized-highcharts>'));
+                                }
+
+                                return fixes;
+                            }
                         }
-
-                        return fixes;
-                    }
+                    ]
                 });
             }
         });
