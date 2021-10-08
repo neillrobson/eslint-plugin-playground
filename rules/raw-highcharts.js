@@ -1,7 +1,10 @@
 module.exports = {
     meta: {
         type: 'suggestion',
-        fixable: 'code'
+        fixable: 'code',
+        messages: {
+            useSanitized: "Use Pendo's sanitized-highcharts component instead."
+        }
     },
     create(context) {
         const template =
@@ -11,7 +14,7 @@ module.exports = {
             'VElement[name=highcharts]'(node) {
                 context.report({
                     node,
-                    message: "Use Pendo's sanitized-highcharts component instead.",
+                    messageId: 'useSanitized',
                     fix: (fixer) => {
                         const firstToken = template.getFirstToken(node);
                         const fixes = [

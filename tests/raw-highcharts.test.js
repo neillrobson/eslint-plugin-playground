@@ -27,22 +27,22 @@ ruleTester.run('raw-highcharts', rule, {
         {
             code: '<template><highcharts /></template>',
             output: '<template><sanitized-highcharts /></template>',
-            errors: [{ message: "Use Pendo's sanitized-highcharts component instead." }]
+            errors: [{ messageId: 'useSanitized' }]
         },
         {
             code: '<template><highcharts v-if="condition" allow-props /></template>',
             output: '<template><sanitized-highcharts v-if="condition" allow-props /></template>',
-            errors: [{ message: "Use Pendo's sanitized-highcharts component instead." }]
+            errors: [{ messageId: 'useSanitized' }]
         },
         {
             code: '<template><highcharts></highcharts></template>',
             output: '<template><sanitized-highcharts></sanitized-highcharts></template>',
-            errors: [{ message: "Use Pendo's sanitized-highcharts component instead." }]
+            errors: [{ messageId: 'useSanitized' }]
         },
         {
             code: '<template><highcharts v-if="condition" allow-props ></highcharts></template>',
             output: '<template><sanitized-highcharts v-if="condition" allow-props ></sanitized-highcharts></template>',
-            errors: [{ message: "Use Pendo's sanitized-highcharts component instead." }]
+            errors: [{ messageId: 'useSanitized' }]
         }
     ]
 });
