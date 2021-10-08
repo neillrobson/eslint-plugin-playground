@@ -9,13 +9,24 @@ module.exports = {
 
         return context.parserServices.defineTemplateBodyVisitor({
             'VElement[name=highcharts]'(node) {
-                const firstToken = template.getFirstToken(node);
-
                 context.report({
                     node,
                     message: "Use Pendo's sanitized-highcharts component instead.",
-                    fix: (fixer) =>
-                        fixer.replaceTextRange([firstToken.range[0] + 1, firstToken.range[1]], 'sanitized-highcharts')
+                    fix: (fixer) => {
+                        const firstToken = template.getFirstToken(node);
+                        const fixes = [
+                            fixer.replaceTextRange(
+                                [firstToken.range[0] + 1, firstToken.range[1]],
+                                'sanitized-highcharts'
+                            )
+                        ];
+
+                        if (node.endTag) {
+                            fixes.push(fixer.replaceText(node.endTag, '</sanitized-highcharts>'));
+                        }
+
+                        return fixes;
+                    }
                 });
             }
         });

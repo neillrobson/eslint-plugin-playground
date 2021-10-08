@@ -44,4 +44,4 @@
 
 ## Todo
 
--   [ ] The fix function for `no-raw-highcharts` does not replace the closing tag of the template component.
+-   [x] The fix function for `no-raw-highcharts` does not replace the closing tag of the template component.

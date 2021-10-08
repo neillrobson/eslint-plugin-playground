@@ -15,6 +15,12 @@ ruleTester.run('raw-highcharts', rule, {
         },
         {
             code: '<template><sanitized-highcharts></sanitized-highcharts></template>'
+        },
+        {
+            code: '<template><sanitized-highcharts v-if="condition" allow-props /></template>'
+        },
+        {
+            code: '<template><sanitized-highcharts v-if="condition" allow-props></sanitized-highcharts></template>'
         }
     ],
     invalid: [
@@ -24,8 +30,18 @@ ruleTester.run('raw-highcharts', rule, {
             errors: [{ message: "Use Pendo's sanitized-highcharts component instead." }]
         },
         {
+            code: '<template><highcharts v-if="condition" allow-props /></template>',
+            output: '<template><sanitized-highcharts v-if="condition" allow-props /></template>',
+            errors: [{ message: "Use Pendo's sanitized-highcharts component instead." }]
+        },
+        {
             code: '<template><highcharts></highcharts></template>',
             output: '<template><sanitized-highcharts></sanitized-highcharts></template>',
+            errors: [{ message: "Use Pendo's sanitized-highcharts component instead." }]
+        },
+        {
+            code: '<template><highcharts v-if="condition" allow-props ></highcharts></template>',
+            output: '<template><sanitized-highcharts v-if="condition" allow-props ></sanitized-highcharts></template>',
             errors: [{ message: "Use Pendo's sanitized-highcharts component instead." }]
         }
     ]
